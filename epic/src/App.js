@@ -5,6 +5,7 @@ import './App.css';
 import Header from './components/Header'
 import Intropage from './components/Intropage'
 import Dashboard from './components/Dashboard'
+import DeckEditor from './components/DeckEditor'
 
 class App extends Component {
   constructor() {
@@ -12,12 +13,30 @@ class App extends Component {
     this.state = {
       auth: false,
       user: null,
-      apiError: null
+      apiError: null,
+      decks: [],
+      cards: []
     }
+
+    this.getDecks = this.getDecks.bind(this)
     this.handleLoginSubmit = this.handleLoginSubmit.bind(this)
     this.handleRegisterSubmit = this.handleRegisterSubmit.bind(this)
     this.logout = this.logout.bind(this)
     this.deleteAccount = this.deleteAccount.bind(this)
+  }
+
+  getDecks() {
+    fetch('/api/decks', {
+      credentials: 'include',
+    }).then(res => res.json())
+    .then(res => {
+      if(res.decks) {
+        this.setState({
+          decks: res.decks,
+          cards: res.cards
+        })
+      }
+    }).catch(err => console.log(err));
   }
 
   logout() {
@@ -50,6 +69,7 @@ class App extends Component {
               auth: res.auth,
               user: res.data.user
             })
+            this.getDecks()
           }else{
             this.setState({
               apiError: 'User not found'
@@ -123,6 +143,17 @@ class App extends Component {
                   handleRegisterSubmit={this.handleRegisterSubmit}
                   apiError={this.state.apiError}
                 />
+            )
+          }}
+          />
+          <Route exact path='/deck-editor' render={(props) => {
+            return (
+              this.state.auth ?
+              <DeckEditor
+                user={this.state.user}
+                decks={this.state.decks}
+              /> :
+              <Redirect push to='/' />
             )
           }}
           />

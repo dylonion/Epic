@@ -43,6 +43,9 @@ app.use('/api/auth', authRoutes);
 const epicRoutes = require('./routes/epic-routes');
 app.use('/api/epic', epicRoutes);
 
+const deckRoutes = require('./routes/deck-routes');
+app.use('/api/decks', deckRoutes);
+
 app.use('*', (req, res) => {
   res.status(400).json({
     message: 'Not Found!',

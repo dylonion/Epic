@@ -9,6 +9,15 @@ Epic.findAll = () => {
   `);
 };
 
+Epic.draft = (cardlist) => {
+  let cards = "{"+cardlist.toString()+"}";
+  console.log(cards);
+  return db.query(`
+    SELECT * from cards
+    WHERE id !=all($1)
+  `,cards)
+}
+
 Epic.findById = (id) => {
   return db.oneOrNone(`
     SELECT * FROM cards

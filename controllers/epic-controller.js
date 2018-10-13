@@ -15,6 +15,16 @@ epicController.index = (req, res, next) => {
     }).catch(next)
 };
 
+epicController.draft = (req, res, next) => {
+  Epic.draft(req.body.cardList)
+  .then(cards => {
+    res.json({
+      message: 'ok',
+      cards: cards
+    })
+  })
+}
+
 epicController.show = (req, res, next) => {
   Epic.findById(req.params.id)
     .then(card => {

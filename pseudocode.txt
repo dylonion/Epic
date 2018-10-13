@@ -1,6 +1,25 @@
 Player joins pre-game lobby.
 prompt for name. (Login screen/persistence?)
 List of open lobbys, option to join or create. Password protection option.
-On create game: select game type: draft or constructed.
-  If constructed: check for decks. If no decks saved for player,
+On create game: select game type: draft or constructed. Constructed greyed out if no decks created
+[...get back to this later. Focus on the game.]
+
+Draft mode:
+  -Both players validate readycheck
+  - coinflip for first pick
+  - draw 4 random cards from the full deck of available cards.
+  coinflip winner picks 1 from the 4 (clicks on it). Clicks accept
+  - player2 chooses 2 from the 3. clicks accept. Remaining card goes to player1.
+  (process is repeated until both players have 30 cards in deck).
+  - Deck order is randomized for both players.
+
+Game start:
+  -Both players validate readycheck
+  - 5 cards drawn for both players
+  - Mulligan phase
+    -Start 1 minute timer. If both players validate ready, proceed. If 1 minute,
+    move to next phase with mulligan options set to selected cards.
+    - Set health for both players
+  - Coinflip for starting player
+  - Start Active player phase 1
 

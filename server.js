@@ -23,8 +23,8 @@ app.use(
     saveUninitialized: true,
   }),
 );
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(express.static('public'));
 
@@ -37,8 +37,8 @@ app.listen(PORT, () => {
 //   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 // });
 
-// const authRoutes = require('./routes/auth-routes');
-// app.use('/api/auth', authRoutes);
+const authRoutes = require('./routes/auth-routes');
+app.use('/api/auth', authRoutes);
 
 const epicRoutes = require('./routes/epic-routes');
 app.use('/api/epic', epicRoutes);

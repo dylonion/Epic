@@ -1,0 +1,81 @@
+
+Player {
+  Health: 30,
+  Actions (gold): 1 or 0,
+  Zones: {
+    Battlefield: {Cards: 0},
+    Graveyard: {Cards: 0},
+    Hand: {Cards: 5},
+    Deck: {Cards: 25}
+  },
+  myTurn: True,
+  phase: [gold reset, draw phase, main phase, battle phase,
+          post-battle, end of turn]
+}
+
+Card {
+  Type: Event/Champion,
+  Cost: Boolean,
+  Status: [
+    In deck,
+    In hand,
+    In graveyard,
+    Exiled (token),
+    Deployed (played this turn),
+    expended (attacked or used ability that expends),
+    Flipped (declared as a blocker)
+  ],
+  Offense: Null or Integer,
+  Defense: Null or Integer > 0,
+  Alignment: Red (evil), yellow (good), green (wild), blue (sage),
+  Name: string,
+  portrait: file symlink,
+  Class: Null or (Hydra, Dragon, Demon, Human, Zombie, wolf,
+  imp, spirit, pegasus, tyrant, construct, dinosaur, titan, angel,
+  giant, fairy, mage, ape, wurm, vampire, unicorn, minotaur, djinn,
+  knight, ogre, gargoyle, token, troll),
+  rules text: null or [...big list],
+  keywords: null or [
+    Airborne, Ally trigger, Ambush, Banish, Blitz, Break, Breakthrough,
+    Deploying, Expend, Loyalty 2, tribute, recall, recycle, righteous,
+    Token, Unblockable, Unbanishable, Untargetable, Unbreakable
+  ]
+}
+
+Phases (expanded):
+  Mulligan phase (before game proper begins): both players may choose x cards
+  for the bottom of deck, draw x cards, and lose x health.
+  Gold reset (phase[0]): Set the gold of both players to 1 (no actions)
+  draw phase:
+              - active player draws card (except on player1 turn1).
+              - prepare all champions of active player
+              - fire all 'start of turn' triggers
+  main phase:
+              - Active player actions
+              - inactive player actions
+  attack phase:
+              - Active player chooses attacking champions (if they are ready)
+              - Active player plays powers and events
+              - Inactive player plays powers and events
+              (repeat this and previous step until both players pass)
+              - Inactive player choses champions to block.
+                those champs enter blocking state and can block nothing else.
+              - Active player plays powers and events
+              - Inactive player plays powers and events
+              (repeat this and previous step until both players pass)
+              - Damage: attackers and defenders deal their offense
+              to the opposing defense simultaniously. Broken champs
+              are put in graveyard. Both players decide how to allocate damage.
+              - Resolve triggered abilities produced during damage step.
+              - Resolve 'end of combat' triggers
+              (Repeat from start of attack phase until Active player passes.)
+              - Active player passes
+  post battle phase:
+              - Inactive player may play cards.
+  End phase:
+              - Resolve 'end of turn' triggers
+              - Active player discards down to seven cards
+              - damage is removed from champions (defense is reset to default value)
+              - flipped (blocking) champs are prepared
+
+

@@ -1,0 +1,6 @@
+Player joins pre-game lobby.
+prompt for name. (Login screen/persistence?)
+List of open lobbys, option to join or create. Password protection option.
+On create game: select game type: draft or constructed.
+  If constructed: check for decks. If no decks saved for player,
+

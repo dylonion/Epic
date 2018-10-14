@@ -15,6 +15,7 @@ Epic.draft = (cardlist) => {
   return db.query(`
     SELECT * from cards
     WHERE id !=all($1)
+    LIMIT 4
   `,cards)
 }
 
